@@ -1,49 +1,64 @@
-const express = require('express');
-const mongoose = require("mongoose");
-const User = require('./mongo.js');
+import express from 'express';
+import mongoose from "mongoose";
+import {Event, Question} from './mongo.js';
+import cors from 'cors';
+import fetch from 'node-fetch';
+
 const app = express();
-const cors = require('cors');
-const {randomName} = require("./utils.js");
 
 app.use(cors());
 
 app.use(express.json());
 
-app.post("/new_user", async (req, res) => {
-	try {
-		const user = new User({name: req.body.name, email: req.body.email, password: req.body.password});
-		await user.save();
-		res.send({hello: "hello"}); // Auth token?
-	}
-	catch(e) {
-		console.log(e);
-		res.send({err: e, status: "oh no", another_status: res.status});
-		throw new Error("i'll end you");
-	}
-});
+app.post('/event', async (req, res) =>
+{
+	const {username, password, email, title, date} = req.body;
+	console.log(req.body);
 
-app.post("/user", async (req, res) => {
-	try {
-		const response =  await User.find({
-			name: req.username,
-		});
-		if (!response || response.password !== req.body.password)
-			res.status(400).send("urod");	
-		else
-			res.send({hello: "hello"}); // token again
-	}
-	catch(err) {
-		console.log(err);
-		res.status(501).send({err: err, status: "what are you doing step user"});
-	}
+	// try
+	// {
+	// 	const event = new Event({username, password, email, title, date});
+	// 	event.save();
+	// 	res.status(200).send("OK");
+	// }
+	// catch (error)
+	// {
+	// 	console.log(error);
+	// 	res.status(404).send(error);
+	// }
 })
 
-module.exports = app;
-// router.get('/gettdata/:imei', (req, res, next) => {
-// 	Post.find({ 'imei.name': req.params.imei })
-// 	  .then((posts) => {
-// 		res.json(posts);
-// 		console.log(posts);
-// 	  })
-// 	  .catch(err => console.log(err))
-//   });
+app.get('/event', async (req, res) =>
+{
+	const {username, password, email, title, date} = req.body;
+	console.log(req.body);
+
+	// try
+	// {
+	// 	const event = new Event({username, password, email, title, date});
+	// 	event.save();
+	// 	res.status(200).send("OK");
+	// }
+	// catch (error)
+	// {
+	// 	console.log(error);
+	// 	res.status(404).send(error);
+	// }
+})
+
+app.get('/event_test', async (req, res) =>
+{
+	let response = await fetch("http://localhost:4242/event", {
+		method: "POST",
+		headers: {'Content-Type': 'application/json'},
+		body: JSON.stringify({
+			"username": "hello1",
+			"password": "hello2",
+			"email": "hello3",
+			"title": "hello4",
+			"date": "2002-08-08",
+		})
+	})
+});
+
+export { app };

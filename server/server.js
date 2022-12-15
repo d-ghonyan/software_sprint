@@ -1,10 +1,10 @@
-const express = require('express');
-const mongoose = require("mongoose");
-const User = require('./mongo.js');
+import express from 'express';
+import mongoose from "mongoose";
+import dotenv from 'dotenv'
 
-require("dotenv").config();
+dotenv.config();
 
-const app = require("./router.js");
+import { app } from "./router.js";
 
 mongoose.set('strictQuery', true);
 
@@ -12,5 +12,5 @@ mongoose.connect(process.env.MONGO_CONNECT, {useNewUrlParser: true,});
 
 app.listen(process.env.PORT)
 {
-	console.log('aaaaaaa');
+	console.log(`listening on port ${process.env.PORT}`);
 }
