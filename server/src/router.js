@@ -3,12 +3,33 @@ import mongoose from "mongoose";
 import {Event, Question} from './mongo.js';
 import cors from 'cors';
 import fetch from 'node-fetch';
+import path from 'path';
+import hbs from 'hbs';
+import * as url from 'url';
 
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const app = express();
+
+const publicPath = path.join(__dirname,'../public')
+const viewsPath = path.join(__dirname,'../templates/views')
+const partialsPath = path.join(__dirname,'../templates/partials')
+
+app.use(express.static(publicPath));
+
+app.set('view engine', 'hbs');
+
+app.set('views', viewsPath);
+
+hbs.registerPartials(partialsPath);
 
 app.use(cors());
 
 app.use(express.json());
+
+app.get('/admin', (req, res) => {
+	res.render('index', {title: 'Events', name: 'hello'});
+})
 
 app.post('/event', async (req, res) =>
 {
