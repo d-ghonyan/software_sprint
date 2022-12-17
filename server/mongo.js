@@ -19,14 +19,22 @@ const EventSchema = new mongoose.Schema(
 	},
 	email: {
 		type: String,
-		unique: true,
 		required: "Email is required",
-		validate: [validateEmail, 'Please fill a valid email address'],
 	},
 	title:
 	{
 		type: String,
 		required: "Title is required",
+	},
+	description:
+	{
+		type: String,
+		required: "Description is required",
+	},
+	accepted:
+	{
+		type: Boolean,
+		default: false,
 	},
 	date:
 	{
