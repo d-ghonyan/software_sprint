@@ -10,15 +10,18 @@ const createDivEvent = (data) => {
 	let description = document.createElement('span');
 	let date = document.createElement('span');
 	let student_info = document.createElement('span');
-	let update = document.createElement('button');
-	
 	div.classList.add("event_container");
 	title1.textContent = `title: ${data.title}`;
 	description.textContent = `description: ${data.description}`;
 	date.textContent = `date: ${data.date}`;
 	student_info.textContent = `student_info: ${data.username} ${data.email}`;
-	update.innerText = "Accept event";
-	div.append(title1, description, date, student_info, update);
+	div.append(title1, description, date, student_info);
+	if (!data.accepted)
+	{
+		let update = document.createElement('button');
+		update.innerText = "Accept event";
+		div.append(update);
+	}
 	return (div);
 }
 
@@ -27,7 +30,7 @@ const createDivQuestion = (data) => {
 	let question = document.createElement('p');
 	let student_info = document.createElement('p');
 	let answer = document.createElement('button');
-	
+
 	div.classList.add("question_container");
 	student_info.textContent = `student_info: ${data.email}`;
 	question.textContent = `question: ${data.question}`;
@@ -44,7 +47,6 @@ fetch('/events').then((response) => {
 			values = Object.values(data);
 			for (let i = 0; i < values.length; i++)
 			{
-				console.log(values[i]);
 				events.append(createDivEvent(values[i]));
 			}
 		}
@@ -59,12 +61,13 @@ fetch('/questions').then((response) => {
 			values = Object.values(data);
 			for (let i = 0; i < values.length; i++)
 			{
-				console.log(values[i]);
 				questions.append(createDivQuestion(values[i]));
 			}
 		}
 	})
 })
+
+
 // })
 
 

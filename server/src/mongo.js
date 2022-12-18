@@ -57,6 +57,10 @@ const QuestionSchema = new mongoose.Schema(
 		type: String,
 		required: "Question is required",
 	},
+	answered: {
+		type: Boolean,
+		default: false,
+	}
 });
 
 const Question = mongoose.model("Question", QuestionSchema, "Questions");

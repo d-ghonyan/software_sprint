@@ -52,7 +52,6 @@ app.post('/event', async (req, res) =>
 app.post('/question', async (req, res) =>
 {
 	const {email, question} = req.body;
-
 	try
 	{
 		const q = new Question({email, question});
@@ -78,7 +77,7 @@ app.get('/events', async (req, res) =>
 				events[el._id] = el;
 			});
 			res.status(200).send(events);
-		})
+		});
 	} catch (error) {
 		console.log(error);
 		res.status(404).send({error: e});
@@ -88,14 +87,15 @@ app.get('/events', async (req, res) =>
 app.get('/questions', async (req, res) =>
 {
 	let questions = {};
-	
+
 	try {
 		Question.find({}, (e, arr) => {
+			arr = arr.filter(el => el.answered == false);
 			arr = arr.forEach(el => {
 				questions[el._id] = el;
 			});
 			res.status(200).send(questions);
-		})
+		});
 	} catch (error) {
 		console.log(error);
 		res.status(404).send({error: e});
