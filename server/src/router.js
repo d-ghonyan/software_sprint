@@ -7,7 +7,6 @@ import path from 'path';
 import hbs from 'hbs';
 import * as url from 'url';
 
-const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const app = express();
 
@@ -34,11 +33,30 @@ app.get('/admin', (req, res) => {
 app.post('/event', async (req, res) =>
 {
 	const {username, password, email, title, accepted, description, date} = req.body;
-	
+
+	if (!username || !password || !email || !title || !description || !date || !(date instanceof Date))
+		res.status(400).send({error: "missing fields or invalid data"});
 	try
 	{
 		const event = new Event({username, password, email, accepted, description, title, date});
 		await event.save();
+		res.status(200).send({status: "OK"});
+	}
+	catch (error)
+	{
+		console.log(error);
+		res.status(404).send({error: error});
+	}
+})
+
+app.post('/question', async (req, res) =>
+{
+	const {email, question} = req.body;
+
+	try
+	{
+		const q = new Question({email, question});
+		await q.save();
 		res.status(200).send({status: "OK"});
 	}
 	catch (error)
@@ -67,6 +85,23 @@ app.get('/events', async (req, res) =>
 	}
 })
 
+app.get('/questions', async (req, res) =>
+{
+	let questions = {};
+	
+	try {
+		Question.find({}, (e, arr) => {
+			arr = arr.forEach(el => {
+				questions[el._id] = el;
+			});
+			res.status(200).send(questions);
+		})
+	} catch (error) {
+		console.log(error);
+		res.status(404).send({error: e});
+	}
+})
+
 app.patch('/event', async (req, res) =>
 {
 	const {_id} = req.body;
@@ -83,28 +118,16 @@ app.patch('/event', async (req, res) =>
 	}
 })
 
-app.get('*',(req,res)=>{
-	res.render('404',{
-		title:'404',
-		name:'dve'
-	})
-})
-
 /* ------------------------------------------------------------------------------------------------------------------------------- */
 
-app.get('/event_test_post', async (req, res) =>
+app.get('/question_test', async (req, res) =>
 {
-	let response = await fetch("http://localhost:4242/event", {
+	let response = await fetch("http://localhost:4242/question", {
 		method: "POST",
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify({
-			"username": "hello1",
-			"password": "hello2",
 			"email": "hello3@mail.ru",
-			"title": "hello4",
-			"accepted": "true",
-			"description": "hello5",
-			"date": "2002-08-08",
+			"question": "what the fuck is this"
 		})
 	});
 	console.log(response.json().then(a => {console.log(a);}));

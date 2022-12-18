@@ -49,7 +49,6 @@ const QuestionSchema = new mongoose.Schema(
 {
 	email: {
 		type: String,
-		unique: true,
 		required: "Email is required",
 		validate: [validateEmail, 'Please fill a valid email address'],
 	},

@@ -1,15 +1,17 @@
 const form = document.querySelector('form'),
-	title = document.querySelector('#title'),
-	events = document.querySelector('#events');
+	title_event = document.querySelector('#title_event'),
+	title_question = document.querySelector('#title_question'),
+	events = document.querySelector('#events'),
+	questions = document.querySelector('#questions');
 
-const createDiv = (data) => {
+const createDivEvent = (data) => {
 	let div = document.createElement('div');
-	let title1 = document.createElement('div');
-	let description = document.createElement('div');
-	let date = document.createElement('div');
-	let student_info = document.createElement('div');
+	let title1 = document.createElement('span');
+	let description = document.createElement('span');
+	let date = document.createElement('span');
+	let student_info = document.createElement('span');
 	let update = document.createElement('button');
-
+	
 	div.classList.add("event_container");
 	title1.textContent = `title: ${data.title}`;
 	description.textContent = `description: ${data.description}`;
@@ -20,12 +22,22 @@ const createDiv = (data) => {
 	return (div);
 }
 
-// form.addEventListener('submit', (e) => {
-	// e.preventDefault()
+const createDivQuestion = (data) => {
+	let div = document.createElement('div');
+	let question = document.createElement('p');
+	let student_info = document.createElement('p');
+	let answer = document.createElement('button');
+	
+	div.classList.add("question_container");
+	student_info.textContent = `student_info: ${data.email}`;
+	question.textContent = `question: ${data.question}`;
+	answer.textContent = `Answer the question`;
+	div.append(question, student_info, answer);
+	return (div);
+}
 
 fetch('/events').then((response) => {
 	response.json().then((data) => {
-		console.log(data);
 		if (data.error) {
 			title.textContent = data.error;
 		} else {
@@ -33,7 +45,22 @@ fetch('/events').then((response) => {
 			for (let i = 0; i < values.length; i++)
 			{
 				console.log(values[i]);
-				events.append(createDiv(values[i]));
+				events.append(createDivEvent(values[i]));
+			}
+		}
+	})
+})
+
+fetch('/questions').then((response) => {
+	response.json().then((data) => {
+		if (data.error) {
+			title.textContent = data.error;
+		} else {
+			values = Object.values(data);
+			for (let i = 0; i < values.length; i++)
+			{
+				console.log(values[i]);
+				questions.append(createDivQuestion(values[i]));
 			}
 		}
 	})
