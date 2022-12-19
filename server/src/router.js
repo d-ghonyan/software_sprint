@@ -5,6 +5,7 @@ import fetch from 'node-fetch';
 import path from 'path';
 import hbs from 'hbs';
 import * as url from 'url';
+import { log } from 'console';
 
 const app = express();
 
@@ -35,17 +36,17 @@ app.post('/event', async (req, res) =>
 	const {username, password, email, title, accepted, description, date} = req.body;
 
 	if (!username || !password || !email || !title || !description || !date || !(date instanceof Date))
-		res.status(400).send({error: "missing fields or invalid data"});
+		console.log("ashajsgajsd");;// res.send({error: "missing fields or invalid data"});
 	try
 	{
 		const event = new Event({username, password, email, accepted, description, title, date});
 		await event.save();
-		res.status(200).send({status: "OK"});
+		// res.send({status: "OK"});
 	}
 	catch (error)
 	{
 		console.log(error);
-		res.status(404).send({error: error});
+		// res.send({error: error});
 	}
 })
 
@@ -56,12 +57,10 @@ app.post('/question', async (req, res) =>
 	{
 		const q = new Question({email, question});
 		await q.save();
-		res.status(200).send({status: "OK"});
 	}
 	catch (error)
 	{
 		console.log(error);
-		res.status(404).send({error: error});
 	}
 })
 
