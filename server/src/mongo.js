@@ -1,10 +1,5 @@
 import mongoose from "mongoose";
 
-const validateEmail = function(email) {
-    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return re.test(email)
-};
-
 const EventSchema = new mongoose.Schema(
 {
 	username:
@@ -50,7 +45,6 @@ const QuestionSchema = new mongoose.Schema(
 	email: {
 		type: String,
 		required: "Email is required",
-		validate: [validateEmail, 'Please fill a valid email address'],
 	},
 	question:
 	{

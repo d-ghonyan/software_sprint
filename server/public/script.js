@@ -4,22 +4,39 @@ const form = document.querySelector('form'),
 	events = document.querySelector('#events'),
 	questions = document.querySelector('#questions');
 
-const createDivEvent = (data) => {
+const createDivEvent = (data, i) => {
 	let div = document.createElement('div');
 	let title1 = document.createElement('span');
 	let description = document.createElement('span');
 	let date = document.createElement('span');
 	let student_info = document.createElement('span');
-	div.classList.add("event_container");
+	div.classList.add("event_container", "container" + i);
 	title1.textContent = `title: ${data.title}`;
 	description.textContent = `description: ${data.description}`;
 	date.textContent = `date: ${data.date}`;
 	student_info.textContent = `student_info: ${data.username} ${data.email}`;
 	div.append(title1, description, date, student_info);
+
 	if (!data.accepted)
 	{
 		let update = document.createElement('button');
 		update.innerText = "Accept event";
+		update.onclick = function () {
+			fetch("/event", {
+				method: "PATCH",
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					"_id": data._id
+				}),
+			}).then((response) => {
+				response.json().then((data) => {
+					if (data.error)
+						title_event.innerText = "Error accepting the event";
+					else
+						this.disabled = true;
+				})
+			})
+		}
 		div.append(update);
 	}
 	return (div);
@@ -47,11 +64,11 @@ fetch('/events').then((response) => {
 			values = Object.values(data);
 			for (let i = 0; i < values.length; i++)
 			{
-				events.append(createDivEvent(values[i]));
+				events.append(createDivEvent(values[i], i));
 			}
 		}
 	})
-})
+});
 
 fetch('/questions').then((response) => {
 	response.json().then((data) => {
@@ -65,10 +82,4 @@ fetch('/questions').then((response) => {
 			}
 		}
 	})
-})
-
-
-// })
-
-
-
+});

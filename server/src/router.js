@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from "mongoose";
 import {Event, Question} from './mongo.js';
 import cors from 'cors';
 import fetch from 'node-fetch';
@@ -7,8 +6,9 @@ import path from 'path';
 import hbs from 'hbs';
 import * as url from 'url';
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const app = express();
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const publicPath = path.join(__dirname,'../public')
 const viewsPath = path.join(__dirname,'../templates/views')
