@@ -1,4 +1,109 @@
+// https://www.youtube.com/watch?v=27f3B1qndW8
+//https://github.com/monsterlessonsacademy/monsterlessonsacademy/tree/221-react-image-slider
+// https://www.youtube.com/watch?v=wr3VmbZdVA4
+// import React, { useState, useEffect } from "react";
+
+// function Services() {
+//   const [data, setData] = useState([]);
+//   const [inputs, setInputs] = useState({});
+
+//   //Get Method
+//   const apiGet = () => {
+//     fetch("http://localhost:4242/events?accepted=true")
+//       .then((response) => response.json())
+//       .then((json) => {
+// 		json = Object.values(json);
+//         console.log(json);
+//         setData(json);
+//       });
+//   };
+
+//   //Post Method
+//   const apiPost = async () => {
+//     await fetch("https://jsonplaceholder.typicode.com/posts", {
+//       method: "POST",
+//       body: JSON.stringify({
+//         title: inputs.title,
+//         body: inputs.body,
+//         userId: parseInt(inputs.userId),
+//       }),
+//       headers: {
+//         "Content-type": "application/json; charset=UTF-8",
+//       },
+//     })
+//       .then((response) => response.json())
+//       .then((json) => console.log(json));
+//   };
+
+//   const handleChange = (event) => {
+//     event.persist();
+//     setInputs((inputs) => ({
+//       ...inputs,
+
+//       [event.target.name]: event.target.value,
+//     }));
+//   };
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     apiPost();
+//     console.log(inputs);
+//   };
+
+//   //   useEffect(() => {
+//   //     apiGet();
+//   //   }, []);
+
+//   return (
+//     <div>
+//       My API <br />
+//       <button onClick={apiGet}>Fetch API</button>
+//       <br />
+//       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+//       <div>
+//         <ul>
+//           {data.map((item) => (
+//             <li key={item.id}>
+//               {item.userId},{item.title}
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//       <div>
+//         <form onSubmit={handleSubmit}>
+//           <input
+//             type="text"
+//             name="title"
+//             placeholder="title"
+//             onChange={handleChange}
+//           />{" "}
+//           <br />
+//           <input
+//             type="text"
+//             name="body"
+//             placeholder="body"
+//             onChange={handleChange}
+//           />
+//           <br />
+//           <input
+//             type="number"
+//             name="userId"
+//             placeholder="userId"
+//             onChange={handleChange}
+//           />
+//           <br />
+//           <input type="submit" value="Submit" onChange={handleChange} />
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Services;
+
 import React, { useEffect, useState } from "react";
+
+
 import {
 	ServicesContainer,
 	ServicesH1,
@@ -10,20 +115,8 @@ import {
 } from "./SeviceElements"
 import Popup from "./Popup";
 import axios from 'axios';
-require('./index.css')
+import './index.css';
 
-// get event list
-// fetch("http://localhost:4242/events?acceptes=true", {method: "GET", headers: {"Content-Type": 'application/json'}})
-
-// post an event
-// fetch("http://localhost:4242/event", {method: "POST", headers: {"Content-Type": 'application/json'}, body: JSON.stringify({
-// username, password, email, title, descriptione, accepted=false, date(YYYY-MM-DD);
-// })})
-
-// post a question
-// fetch("http://localhost:4242/question", {method: "POST", headers: {"Content-Type": 'application/json'}, body: JSON.stringify({
-// email, question;
-// })})
 
 
 const Services = () => {
@@ -33,55 +126,22 @@ const Services = () => {
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	}
-	const [data, setData] = React.useState([]);
+	const [data, setData] = useState([]);
 
-	//   const apiGet = async () => {
-	//     let response = await fetch("http://localhost:4242/events?accepted=true", { method: "GET", headers: { "Content-Type": 'application/json' } });
+	const apiGet = () => {
+		fetch("http://localhost:4242/events?accepted=true")
+		  .then((response) => response.json())
+		  .then((json) => {
+			const arr = [];
+			for (const key in json) arr.push(json[key]);
+			setData(arr);
+		});
+	  };
+	
 
-	// 	let a = await response.json();
-
-	// 	console.log(Object.values(a));
-	// 	setData(a);
-	//   };
-
-	// useEffect(()=>{
-	// 	fetch("http://localhost:4242/events?accepted=true", { method: "GET", headers: { "Content-Type": 'application/json' } })
-	// 	.then((response) => response.json())
-	// 	.then((json) => {
-	// 		console.log(json);
-	// 		setData(json);
-	// 	});
-	// }, [data])
-
-
-	// console.log(data);
-
-	//   const apiGet = () => {
-	// 	const fetched_data= fetch("http://localhost:4242/events?accepted=true", { method: "GET", headers: { "Content-Type": 'application/json' } })
-	//       .then((response) => response.json())
-	//       .then((json) => {
-	//         console.log(json);
-	//         setData(json);
-	//       });
-	// 	  return fetched_data;
-	//   };
-
-	const apiGet = async () => {
-		console.log(">>>>>>>\n")
-		try {
-			let response = await fetch("http://localhost:4242/events?accepted=true", {
-				method: "GET",
-				headers: {"Content-Type": 'application/json'},
-			})
-			return response;
-
-			console.log(response);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	setData(apiGet());
+	useEffect(() => {
+		apiGet();
+	}, [])
 
 	const apiPost = async () => {
 		try {
@@ -105,21 +165,6 @@ const Services = () => {
 		}
 	}
 
-	//     await fetch("https://jsonplaceholder.typicode.com/posts", {
-	//       method: "POST",
-	//       body: JSON.stringify({
-	//         title: inputs.title,
-	//         body: inputs.body,
-	//         userId: parseInt(inputs.userId),
-	//       }),
-	//       headers: {
-	//         "Content-type": "application/json; charset=UTF-8",
-	//       },
-	//     })
-	//       .then((response) => response.json())
-	//       .then((json) => console.log(json));
-	//   };
-
 	const handleChange = (event) => {
 		event.persist();
 		setInputs((inputs) => ({
@@ -139,11 +184,11 @@ const Services = () => {
 		<ServicesContainer id="sevices">
 			<ServicesH1>Our Events</ServicesH1>
 			<ServicesWrapper>
-				{
-					data.map((val, i) => (
-						<ServicesCard key={i} className="card">
-							<ServicesH2>{val.id !== undefined ? val : "kruykuyiuiyurttyuyruruyyt"}</ServicesH2>
-							<ServicesP>{val.id}</ServicesP>
+				{	data &&
+					data.map((val) => (
+						<ServicesCard key={val._id} className="card">
+							<ServicesH2>{val.title}</ServicesH2>
+							<ServicesP>{val.description}</ServicesP>
 							<input
 								type="button"
 								value="More"
@@ -151,8 +196,7 @@ const Services = () => {
 							/>
 							{isOpen && <Popup
 								content={<>
-									<b>{val.idl}</b>
-									<p>{val.id}</p>
+									<p>{val._id}</p>
 									<button>Test button</button>
 								</>}
 								handleClose={togglePopup}
@@ -160,6 +204,7 @@ const Services = () => {
 						</ServicesCard>
 					))}
 			</ServicesWrapper>
+
 			<div>
 				<form onSubmit={handleSubmit}>
 					<input
@@ -172,16 +217,31 @@ const Services = () => {
 					<input
 						type="text"
 						name="body"
-						placeholder="body"
+						placeholder="description"
 						onChange={handleChange}
 					/>
 					<br />
+					<input
+						type="text"
+						name="body"
+						placeholder="username"
+						onChange={handleChange}
+					/>
+					<br />
+					<input
+						placeholder="password"
+						onChange={handleChange}
+						type="date"
+						name="event_date"
+					></input>
+										<br />
 					<input
 						placeholder="userId"
 						onChange={handleChange}
 						type="date"
 						name="event_date"
 					></input>
+					<br />
 					<br />
 					<input type="submit" value="Submit" onChange={handleChange} />
 				</form>

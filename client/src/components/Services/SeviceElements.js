@@ -27,7 +27,6 @@ export const ServicesH1 = styled.h1`
 `;
 
 export const ServicesWrapper = styled.div`
-  max-width: 1000px;
   margin :0 auto;
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
