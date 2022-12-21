@@ -10,13 +10,16 @@ body{
 	min-height:800px;
 }
 
-main{
+main {
+	position:absolute;
+	top:20%;
+}
+
+.container{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	position:absolute;
-	top:20%;
 }
 
 img{
@@ -47,8 +50,8 @@ footer .copyright{
 	justify-content:flex-end;
 }
 
-.events{
-	display: flex;
+.events, .accepted_events, .questions{
+	display: none;
 	justify-content: space-around;
 }
 

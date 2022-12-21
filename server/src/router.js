@@ -52,7 +52,8 @@ app.post('/event', async (req, res) =>
 			key: process.env.API_KEY,
 			email, username,
 			subject: "Your event is submitted",
-			body: "We received your event request and will review it as soon as possible",
+			body: `We received your event request and will review it as soon as possible.<br><br>Details<br>\
+			Title: ${title}<br>Description: ${description}<br>Date: ${date.slice(0, 10)}`,
 		});
 	}
 	catch (error)
@@ -114,11 +115,18 @@ app.get('/questions', async (req, res) =>
 
 app.patch('/event', async (req, res) =>
 {
-	const {_id} = req.body;
+	const {_id, username, email, title, description, date} = req.body;
 	
 	try
 	{
 		await Event.updateOne({_id}, {accepted: true});
+		sendEmail({
+			key: process.env.API_KEY,
+			email, username,
+			subject: "Your event was accepted",
+			body: `Your event request \`${title}' was accepted.<br><br>Details<br>\
+			Title: ${title}<br>Description: ${description}<br>Date: ${date.slice(0, 10)}`,
+		});
 		res.status(200).send({status: "OK"});
 	}
 	catch (error)
@@ -145,7 +153,7 @@ app.get('/question_test', async (req, res) =>
 
 app.get('/event_test_post', async (req, res) =>
 {
-	let response = await fetch("http://localhost:4242/event", {
+	let response = await fetch("http://127.0.0.1:4242/event", {
 		method: "POST",
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify({
@@ -163,7 +171,7 @@ app.get('/event_test_post', async (req, res) =>
 
 app.get('/event_test_patch', async (req, res) =>
 {
-	let response = await fetch("http://localhost:4242/event", {
+	let response = await fetch("http://127.0.0.1:4242/event", {
 		method: "PATCH",
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify({

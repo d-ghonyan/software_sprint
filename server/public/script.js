@@ -1,8 +1,31 @@
 const form = document.querySelector('form'),
 	title_event = document.querySelector('#title_event'),
+	title_accepted_event = document.querySelector('#title_accepted_event'),
 	title_question = document.querySelector('#title_question'),
 	events = document.querySelector('#events'),
+	accepted_events = document.querySelector('#accepted_events'),
+	not_accetped_btn = document.querySelector('#not_accetped_btn'),
+	question_btn = document.querySelector('#question_btn'),
+	accepted_btn = document.querySelector('#accepted_btn'),
 	questions = document.querySelector('#questions');
+
+accepted_btn.onclick = function () {
+	accepted_events.style.display = "flex";
+	events.style.display = "none";
+	questions.style.display = "none";
+}
+
+not_accetped_btn.onclick = function () {
+	accepted_events.style.display = "none";
+	events.style.display = "flex";
+	questions.style.display = "none";
+}
+
+question_btn.onclick = function () {
+	accepted_events.style.display = "none";
+	events.style.display = "none";
+	questions.style.display = "flex";
+}
 
 const createDivEvent = (data, i) => {
 	let div = document.createElement('div');
@@ -26,7 +49,12 @@ const createDivEvent = (data, i) => {
 				method: "PATCH",
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
-					"_id": data._id
+					"email": data.email,
+					"username": data.username,
+					"title": data.title,
+					"_id": data._id,
+					"description": data.description,
+					"date": data.date
 				}),
 			}).then((response) => {
 				response.json().then((data) => {
@@ -62,9 +90,14 @@ fetch('/events').then((response) => {
 			title.textContent = data.error;
 		} else {
 			values = Object.values(data);
+			if (values.length == 0)
+			{
+				title_event.innerText = "No events";
+				title_accepted_event.innerText = "No events";
+			}
 			for (let i = 0; i < values.length; i++)
 			{
-				events.append(createDivEvent(values[i], i));
+				(values[i].accepted ? accepted_events : events).append(createDivEvent(values[i], i));
 			}
 		}
 	})
@@ -76,6 +109,8 @@ fetch('/questions').then((response) => {
 			title.textContent = data.error;
 		} else {
 			values = Object.values(data);
+			if (values.length == 0)
+				title_question.innerText = "No questions asked";
 			for (let i = 0; i < values.length; i++)
 			{
 				questions.append(createDivQuestion(values[i]));
