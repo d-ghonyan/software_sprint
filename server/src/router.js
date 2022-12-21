@@ -5,7 +5,10 @@ import fetch from 'node-fetch';
 import path from 'path';
 import hbs from 'hbs';
 import * as url from 'url';
-import { log } from 'console';
+import { sendEmail } from './mail.js';
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const app = express();
 
@@ -35,18 +38,26 @@ app.post('/event', async (req, res) =>
 {
 	const {username, password, email, title, accepted, description, date} = req.body;
 
-	if (!username || !password || !email || !title || !description || !date || !(date instanceof Date))
-		console.log("ashajsgajsd");;// res.send({error: "missing fields or invalid data"});
+	if (!username || !password || !email || !title || !description || !date)
+	{
+		console.log(username, password, email, title, accepted, description, date, date instanceof Date);
+		console.log("Invalid data");
+		return ;
+	}
 	try
 	{
-		const event = new Event({username, password, email, accepted, description, title, date});
+		const event = new Event({username, password, email, accepted: false, description, title, date});
 		await event.save();
-		// res.send({status: "OK"});
+		sendEmail({
+			key: process.env.API_KEY,
+			email, username,
+			subject: "Your event is submitted",
+			body: "We received your event request and will review it as soon as possible",
+		});
 	}
 	catch (error)
 	{
 		console.log(error);
-		// res.send({error: error});
 	}
 })
 
@@ -127,6 +138,24 @@ app.get('/question_test', async (req, res) =>
 		body: JSON.stringify({
 			"email": "hello3@mail.ru",
 			"question": "what the fuck is this"
+		})
+	});
+	console.log(response.json().then(a => {console.log(a);}));
+});
+
+app.get('/event_test_post', async (req, res) =>
+{
+	let response = await fetch("http://localhost:4242/event", {
+		method: "POST",
+		headers: {'Content-Type': 'application/json'},
+		body: JSON.stringify({
+			"username": "hello1",
+			"password": "hello2",
+			"email": "ghonyaaaan@gmail.com",
+			"title": "hello4",
+			"accepted": "true",
+			"description": "hello5",
+			"date": "2002-08-08",
 		})
 	});
 	console.log(response.json().then(a => {console.log(a);}));

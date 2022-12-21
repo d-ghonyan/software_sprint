@@ -1,22 +1,72 @@
 import dotenv from 'dotenv'
-import Sib from "sib-api-v3-sdk";
+import SibApiV3Sdk from "sib-api-v3-sdk";
+import fetch from 'node-fetch';
 
 dotenv.config();
 
-const client = Sib.ApiClient.instance;
-const apiKey = client.authentications['api-key'];
-apiKey.apiKey = process.env.API_KEY;
+console.log(process.env.API_KEY);
 
-const mail = new Sib.TransactionalEmailsApi();
-const sender = {
-    email: 'david.ghonyan02@gmail.com',
-    name: 'Dve',
-}
-const receivers = [
-    {
-        email: 'ghonyaaaan@gmail.com',
-    },
-];
+// var SibApiV3Sdk = require('sib-api-v3-sdk');
+
+// var defaultClient = SibApiV3Sdk.ApiClient.instance;
+
+// // Configure API key authorization: api-key
+// var apiKey = defaultClient.authentications['api-key'];
+// apiKey.apiKey = process.env.API_KEY;
+// // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+// //apiKey.apiKeyPrefix['api-key'] = "Token"
+
+// // Configure API key authorization: partner-key
+// var partnerKey = defaultClient.authentications['partner-key'];
+// partnerKey.apiKey = process.env.API_KEY
+// // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+// //partnerKey.apiKeyPrefix['partner-key'] = "Token"
+
+// var api = new SibApiV3Sdk.AccountApi()
+// api.getAccount().then(function(data) {
+//   console.log('API called successfully. Returned data: ' + data);
+// }, function(error) {
+//   console.error(error);
+// });
+
+const sendEmail = async (data) => {
+	let {key, email, username, subject, body} = data;
+	let response = await fetch("https://api.sendinblue.com/v3/smtp/email", {
+		method: "POST",
+		headers: {'accept': 'application/json', 'api-key': `${key}`, 'content-type': 'application/json'},
+		body: JSON.stringify({
+			"sender": {
+				"name": "David Ghonyan",
+				"email": "david.ghonyan02@gmail.com"
+			},
+			"to": [
+				{
+					"email": email,
+					"name": username
+				}
+			],
+			"subject": subject,
+			"htmlContent": `<html><head></head><body><p>Hello ${username}, ${body}.<br><br>Sincerely, Student union team.</p></body></html>`
+		})
+	});
+	console.log(response.status, response.statusText);
+};
+
+// a();
+// const client = Sib.ApiClient.instance;
+// const apiKey = client.authentications['api-key'];
+// apiKey.apiKey = process.env.API_KEY;
+
+// const mail = new Sib.TransactionalEmailsApi();
+// const sender = {
+//     email: 'david.ghonyan02@gmail.com',
+//     name: 'Dve',
+// }
+// const receivers = [
+//     {
+//         email: 'ghonyaaaan@gmail.com',
+//     },
+// ];
 
 // mail
 //     .sendTransacEmail({
@@ -37,7 +87,7 @@ const receivers = [
 //     .then(console.log)
 //     .catch(console.log)
 
-export { mail };
+export { sendEmail };
 
 // let defaultClient = SibApiV3Sdk.ApiClient.instance;
 // // Instantiate the client\
