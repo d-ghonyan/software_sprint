@@ -6,6 +6,7 @@ dotenv.config();
 
 const sendEmail = async (data) => {
 	let {key, email, username, subject, body} = data;
+
 	let response = await fetch("https://api.sendinblue.com/v3/smtp/email", {
 		method: "POST",
 		headers: {'accept': 'application/json', 'api-key': `${key}`, 'content-type': 'application/json'},
@@ -21,7 +22,7 @@ const sendEmail = async (data) => {
 				}
 			],
 			"subject": subject,
-			"htmlContent": `<html><head></head><body><p>Hello ${username}, ${body}.<br><br>Sincerely, Student union team.</p></body></html>`
+			"htmlContent": `<html><head></head><body><p>Dear ${username}, ${body}.<br><br>Sincerely, Student union team.</p></body></html>`
 		})
 	});
 	console.log(response.status, response.statusText);

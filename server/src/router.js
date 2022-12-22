@@ -69,6 +69,13 @@ app.post('/question', async (req, res) =>
 	{
 		const q = new Question({email, question});
 		await q.save();
+		sendEmail({
+			key: process.env.API_KEY,
+			username: "User",
+			subject: "Question is recorded",
+			email,
+			body: `We've got your question and will answer it as soon as possible!<br><br>Question: ${question}`
+		});
 	}
 	catch (error)
 	{

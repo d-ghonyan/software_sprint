@@ -18,16 +18,69 @@ export const Icon = styled(Link)`
   }
 `;
 export default function Faq() {
-  const [questions, setQuestions] = useState(data);
+	const [inputs, setInputs] = useState({});
 
-  return (
-    <div className="p-5">
+	const apiPost = async () => {
+		try {
+			let response = await fetch("http://localhost:4242/question", {
+				method: "POST",
+				headers: { "Content-Type": 'application/json' },
+				body: JSON.stringify(
+					{
+						question: inputs.question,
+						email: inputs.email
+					}),
+			})
+		} catch (error) {
+			console.log(error);
+		}
+	}
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		apiPost();
+		event.target.reset();
+		// console.log(inputs);
+	};
 
-{/* 
+	const handleChange = (event) => {
+		event.persist();
+		setInputs((inputs) => ({
+			...inputs,
+
+			[event.target.name]: event.target.value,
+		}));
+	};
+
+	const [questions, setQuestions] = useState(data);
+
+	return (
+		<div className="p-5">
+
+			{/* 
 	<Icon to="/">Tumo Labs</Icon> */}
-      {questions.map((question) => (
-        <SingleQuestion {...question} />
-      ))}
-    </div>
-  );
+			{questions.map((question) => (
+				<SingleQuestion {...question} />
+			))}
+				<form onSubmit={handleSubmit}>
+				<br />
+		<input
+			type="email"
+			name="email"
+			placeholder="Email"
+			onChange={handleChange}
+			required={true}
+		/>
+		<br />
+		<input
+			type="text"
+			name="question"
+			placeholder="Ask your question"
+			onChange={handleChange}
+			required={true}
+		/>
+		<button onChange={handleChange} > Ask</button>
+	</form>
+		</div>
+	);
+
 }
