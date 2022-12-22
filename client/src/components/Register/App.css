@@ -6,13 +6,11 @@
 	box-sizing: border-box;
 }
 
-/* html {
+html {
 	font-family: 'Nunito', sans-serif;
 	font-size: 22px;
 	background:#abb8c3;;
-} */
-
-
+}
 
 body {
     min-height: 692px;
@@ -33,14 +31,21 @@ body {
 	padding: 1rem 0.5rem;
 }
 
-section {
+/* section {
     bottom: 0;
     left: 0;
     right: 0;
     top: 0;
     z-index: 0;  
+	background:rgba(0, 0, 0, 0.9); 
+} */
+
+.sect{
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	min-height:100vh;
 	background:rgba(0, 0, 0, 0.9);
-	min-height: 100vh;
 }
 
 form {
@@ -52,13 +57,20 @@ form {
   display: grid;
   margin: 0 auto;
   padding: 80px 32px;
-  margin: 600px 300px;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
   @media screen and (max-width: 400px) {
     padding: 32px 32px;
   }
 }
+
+
+/* .section{
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	min-height: 100vh;
+} */
 
 input[type='text'],
 input[type='password'],

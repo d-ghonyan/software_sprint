@@ -71,7 +71,7 @@ export const SocialMediaWrapp = styled.h1`
   align-items:center;
   max-width:1100px;
   margin: 40 auto 0 auto;
-
+  background: #101522;
   @media screen and (max-width: 820px) {
     flex-direction:column;
   }
@@ -103,4 +103,5 @@ export const SocialIconLink = styled.a`
 //   padding: 80px;
   color: #fff;
   font-size:24px;
+  backgroung :#101522;
 `;

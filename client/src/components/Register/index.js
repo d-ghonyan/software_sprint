@@ -88,13 +88,12 @@ const Register = () => {
 	};
 
 	return (
-		<>
+		< div>
 			{success ? (
 				<Login />
 			) : (
-				<section >
-          <Icon to="/">Tumo Labs</Icon>
-          
+				<section className = "sect">
+
 					<p
 						ref={errRef}
 						className={errMsg ? 'errmsg' : 'offscreen'}
@@ -102,8 +101,8 @@ const Register = () => {
 					>
 						{errMsg}
 					</p>
-					<form onSubmit={handleSubmit}>
-					<h1>Register</h1>
+					<form class="form" onSubmit={handleSubmit}>
+						<h1>Register</h1>
 						<label htmlFor="username">
 							Username:
 							<FontAwesomeIcon
@@ -219,17 +218,17 @@ const Register = () => {
 						>
 							Sign Up
 						</button>
-					<p>
-						Already registered?
-						<br />
-						<span className="line">
-							<a href="/login">Sign In</a>
-						</span>
-					</p>
+						<p>
+							Already registered?
+							<br />
+							<span className="line">
+								<a href="/login">Sign In</a>
+							</span>
+						</p>
 					</form>
 				</section>
 			)}
-		</>
+		</div>
 	);
 };
 

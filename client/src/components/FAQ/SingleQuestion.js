@@ -16,7 +16,7 @@ export default function SingleQuestion({ question, answer }) {
             {question}
           </h2>
           {showAnswer ? (
-            <button>
+            <button onClick={() => setShowAnswer(!showAnswer)}>
               <FaMinus />
             </button>
           ) : (

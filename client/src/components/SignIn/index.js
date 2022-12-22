@@ -3,6 +3,7 @@ import AuthContext from '../context/AuthProvider';
 
 import axios from '../api/axios';
 import { Icon, Ssection } from './SigninComponents';
+import "./index.css";
 const LOGIN_URL = '/auth';
 
 const Signin = () => {
@@ -66,7 +67,7 @@ const Signin = () => {
 					<p>{/* <a href="#">Go to Home</a> */}</p>
 				</Ssection>
 			) : (
-				<section>
+				<section className = "sup">
           {/* <Icon to="/">Tumo Labs</Icon> */}
 					<p
 						ref={errRef}
@@ -75,7 +76,7 @@ const Signin = () => {
 					>
 						{errMsg}
 					</p>
-					<form onSubmit={handleSubmit}>
+					<form  onSubmit={handleSubmit}>
 					<h1>Sign In</h1>
 						<label htmlFor="username">Username:</label>
 						<input
@@ -101,8 +102,7 @@ const Signin = () => {
 						Need an Account?
 						<br />
 						<span className="line">
-							<a href="/signup">Si
-							gn Up</a>
+							<a href="/signup">Sign Up</a>
 						</span>
 					</p>
 					</form>

@@ -1,0 +1,7 @@
+.wrapp{
+	display:flex;
+	  flex-direction: row;
+	  align-items: center;
+	  min-height:100vh;
+	  justify-content: center;
+};

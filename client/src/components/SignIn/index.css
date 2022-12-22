@@ -1,6 +1,15 @@
-.wrapper{
+/* .wrapper{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: 100vh;
+} */
+
+.sup{
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	min-height: 100vh;
+	background:rgba(0, 0, 0, 0.9);
+
 }

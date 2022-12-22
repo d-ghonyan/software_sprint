@@ -34,13 +34,13 @@ const Item = props => {
 			/>
 			{
 				isOpen &&
-				<Popup
-					content={<>					
-							<p> <b>Event Name</b> _ {props.val.title}</p>
+				<Popup 
+					content={<div >					
+							<p > <b>Event Name</b> _ {props.val.title}</p>
 							<br></br>
 							<p>Drscription <br></br>{props.val.description}</p>
 							<p><b>Event Date</b> _{props.val.date}</p>
-						</>
+						</div>
 					}
 
 					handleClose={togglePopup}

@@ -9,7 +9,7 @@ const togglePopup = () => {
 	console.log(isOpen);
 }
   return (
-    <div className="popup-box">
+    <div className="popup-box" style={{background: "#f78da7"}}>
       <div className="box">
         <span className="close-icon" onClick={props.handleClose} >x</span>
         {props.content}

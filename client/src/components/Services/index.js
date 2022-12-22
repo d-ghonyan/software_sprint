@@ -32,7 +32,11 @@ const Services = () => {
 		  .then((response) => response.json())
 		  .then((json) => {
 			const arr = [];
-			for (const key in json) arr.push(json[key]);
+			for (const key in json) 
+			{
+				json[key].date = json[key].date.slice(0, 10);
+				arr.push(json[key]);
+			}
 			setData(arr);
 		});
 	  };
@@ -55,7 +59,7 @@ const Services = () => {
 						title: inputs.title,
 						description: inputs.description,
 						accepted: false,
-						date: inputs.date
+						date: inputs.date,
 					}),
 			})
 			// console.log(response);
@@ -76,6 +80,7 @@ const Services = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		apiPost();
+		event.target.reset();
 		// console.log(inputs);
 	};
 
@@ -143,7 +148,7 @@ const Services = () => {
 					<br />
 					{/* <input type="submit" value="Submit" onChange={handleChange} /> */}
 					<button  onChange={handleChange} > Create Event</button> 
-				</form>
+				</form >
 			</div>
 		</ServicesContainer>
 	)

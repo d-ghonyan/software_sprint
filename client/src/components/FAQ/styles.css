@@ -3,9 +3,9 @@ body {
 	background:white;
 }
 
-
-
 .p-5{
+	padding-top: 3rem;
+	margin-top:80px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

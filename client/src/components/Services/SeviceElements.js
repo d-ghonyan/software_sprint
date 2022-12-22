@@ -45,7 +45,8 @@ export const ServicesWrapper = styled.div`
 `;
 
 export const ServicesCard = styled.div`
-  width: 200px;
+  height = 100vh;
+  min-width: 200px;
   background : #fff;
   display : flex;
   flex-direction: column;

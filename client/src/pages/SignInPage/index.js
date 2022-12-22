@@ -3,8 +3,7 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/SideBar";
 import Signin, { Login } from "../../components/SignIn";
-
-
+import "./index.css";
 
 function SigninPage() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -14,11 +13,11 @@ function SigninPage() {
 	};
   
 	return (
-	  <div min-height = "100vh" className = "wrapper">
+	  <div className = "sinwrapp">
 		<Sidebar isOpen={isOpen} toggle={toggle} />
 		<Navbar toggle={toggle} />
       <Signin/>
-
+		<Footer/>
     </div>
   );
 }
