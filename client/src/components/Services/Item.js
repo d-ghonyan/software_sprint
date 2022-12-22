@@ -38,7 +38,7 @@ const Item = props => {
 					content={<div >					
 							<p > <b>Event Name</b> _ {props.val.title}</p>
 							<br></br>
-							<p>Drscription <br></br>{props.val.description}</p>
+							<p>Description <br></br>{props.val.description}</p>
 							<p><b>Event Date</b> _{props.val.date}</p>
 						</div>
 					}

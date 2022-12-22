@@ -31,7 +31,7 @@ const Footer = () => {
             <FooterLinkItems>
               <FooterLinkTitle>About us</FooterLinkTitle>
               {/* <FooterLink to="/"> About Us</FooterLink> */}
-			  <p><a href="mailto:labs.student.union@tumo.org" color = "white ">Mail</a></p>
+			  {/* <p><a href="mailto:labs.student.union@tumo.org" color = "white ">labs.student.union@tumo.org</a></p> */}
               {/* <FooterLink to="labs.student.union@tumo.org"> Mail</FooterLink> */}
               {/* <FooterLink to="/"> Testimontails</FooterLink>
               <FooterLink to="/"> Careers</FooterLink>
