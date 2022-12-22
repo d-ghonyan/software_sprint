@@ -1,105 +1,4 @@
-// https://www.youtube.com/watch?v=27f3B1qndW8
-//https://github.com/monsterlessonsacademy/monsterlessonsacademy/tree/221-react-image-slider
-// https://www.youtube.com/watch?v=wr3VmbZdVA4
-// import React, { useState, useEffect } from "react";
 
-// function Services() {
-//   const [data, setData] = useState([]);
-//   const [inputs, setInputs] = useState({});
-
-//   //Get Method
-//   const apiGet = () => {
-//     fetch("http://localhost:4242/events?accepted=true")
-//       .then((response) => response.json())
-//       .then((json) => {
-// 		json = Object.values(json);
-//         console.log(json);
-//         setData(json);
-//       });
-//   };
-
-//   //Post Method
-//   const apiPost = async () => {
-//     await fetch("https://jsonplaceholder.typicode.com/posts", {
-//       method: "POST",
-//       body: JSON.stringify({
-//         title: inputs.title,
-//         body: inputs.body,
-//         userId: parseInt(inputs.userId),
-//       }),
-//       headers: {
-//         "Content-type": "application/json; charset=UTF-8",
-//       },
-//     })
-//       .then((response) => response.json())
-//       .then((json) => console.log(json));
-//   };
-
-//   const handleChange = (event) => {
-//     event.persist();
-//     setInputs((inputs) => ({
-//       ...inputs,
-
-//       [event.target.name]: event.target.value,
-//     }));
-//   };
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     apiPost();
-//     console.log(inputs);
-//   };
-
-//   //   useEffect(() => {
-//   //     apiGet();
-//   //   }, []);
-
-//   return (
-//     <div>
-//       My API <br />
-//       <button onClick={apiGet}>Fetch API</button>
-//       <br />
-//       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-//       <div>
-//         <ul>
-//           {data.map((item) => (
-//             <li key={item.id}>
-//               {item.userId},{item.title}
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-//       <div>
-//         <form onSubmit={handleSubmit}>
-//           <input
-//             type="text"
-//             name="title"
-//             placeholder="title"
-//             onChange={handleChange}
-//           />{" "}
-//           <br />
-//           <input
-//             type="text"
-//             name="body"
-//             placeholder="body"
-//             onChange={handleChange}
-//           />
-//           <br />
-//           <input
-//             type="number"
-//             name="userId"
-//             placeholder="userId"
-//             onChange={handleChange}
-//           />
-//           <br />
-//           <input type="submit" value="Submit" onChange={handleChange} />
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Services;
 
 import React, { useEffect, useState } from "react";
 
@@ -111,22 +10,22 @@ import {
 	ServicesWrapper,
 	ServicesCard,
 	ServicesIcon,
-	ServicesP
+	ServicesP,
+	Icon
 } from "./SeviceElements"
 import Popup from "./Popup";
+import Item from "./Item";
 import axios from 'axios';
 import './index.css';
 
 
 
 const Services = () => {
-	const [isOpen, setIsOpen] = useState(false);
+	
 	const [inputs, setInputs] = useState({});
-
-	const togglePopup = () => {
-		setIsOpen(!isOpen);
-	}
 	const [data, setData] = useState([]);
+
+	
 
 	const apiGet = () => {
 		fetch("http://localhost:4242/events?accepted=true")
@@ -150,16 +49,16 @@ const Services = () => {
 				headers: { "Content-Type": 'application/json' },
 				body: JSON.stringify(
 					{
-						username: "ajshgdjasd",
-						password: "ajshgdjasd",
-						email: "ajshgdjasd",
+						username: inputs.username,
+						password: inputs.password,
+						email: inputs.email,
 						title: inputs.title,
-						description: "hellllloloololo",
+						description: inputs.description,
 						accepted: false,
-						date: "2002-08-08"//Date("2002-08-08")
+						date: inputs.date
 					}),
 			})
-			console.log(response);
+			// console.log(response);
 		} catch (error) {
 			console.log(error);
 		}
@@ -177,31 +76,17 @@ const Services = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		apiPost();
-		console.log(inputs);
+		// console.log(inputs);
 	};
 
 	return (
 		<ServicesContainer id="sevices">
+			{/* <Icon to="/">Tumo Labs</Icon> */}
 			<ServicesH1>Our Events</ServicesH1>
 			<ServicesWrapper>
 				{	data &&
 					data.map((val) => (
-						<ServicesCard key={val._id} className="card">
-							<ServicesH2>{val.title}</ServicesH2>
-							<ServicesP>{val.description}</ServicesP>
-							<input
-								type="button"
-								value="More"
-								onClick={togglePopup}
-							/>
-							{isOpen && <Popup
-								content={<>
-									<p>{val._id}</p>
-									<button>Test button</button>
-								</>}
-								handleClose={togglePopup}
-							/>}
-						</ServicesCard>
+						<Item val ={val} />
 					))}
 			</ServicesWrapper>
 
@@ -209,41 +94,55 @@ const Services = () => {
 				<form onSubmit={handleSubmit}>
 					<input
 						type="text"
+						name="username"
+						placeholder="username"
+						onChange={handleChange}
+						required={true}
+					/>
+					<br />
+					<input
+						type="password"
+						name="password"
+						placeholder="password"
+						onChange={handleChange}
+						required={true}
+					/>
+					<br />
+					<input
+						type="text"
 						name="title"
 						placeholder="title"
 						onChange={handleChange}
-					/>{" "}
-					<br />
-					<input
-						type="text"
-						name="body"
-						placeholder="description"
-						onChange={handleChange}
+						required={true}
 					/>
 					<br />
 					<input
 						type="text"
-						name="body"
-						placeholder="username"
+						name="description"
+						placeholder="Description"
 						onChange={handleChange}
+						required={true}
 					/>
 					<br />
 					<input
-						placeholder="password"
+						placeholder="mail"
 						onChange={handleChange}
-						type="date"
-						name="event_date"
+						type="email"
+						name="email"
+						required={true}
 					></input>
 										<br />
 					<input
-						placeholder="userId"
+						placeholder="date"
 						onChange={handleChange}
 						type="date"
-						name="event_date"
+						name="date"
+						required={true}
 					></input>
 					<br />
 					<br />
-					<input type="submit" value="Submit" onChange={handleChange} />
+					{/* <input type="submit" value="Submit" onChange={handleChange} /> */}
+					<button  onChange={handleChange} > Create Event</button> 
 				</form>
 			</div>
 		</ServicesContainer>

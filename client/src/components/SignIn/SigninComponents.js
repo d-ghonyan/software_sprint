@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
+background: black;
+
   min-height: 692px;
   position: fixed;
   bottom: 0;
@@ -30,7 +32,7 @@ export const Icon = styled(Link)`
   margin-left: 32px;
   margin-top: 32px;
   text-decoration: none;
-  color: #fff;
+  color: black;
   font-weight: 700;
   font-size: 32px;
   @media screen and (max-width: 480px) {
@@ -49,6 +51,7 @@ export const FormContent = styled.div`
 `;
 
 export const Form = styled.form`
+margin-top: 80px;
   background: #010101;
   max-width: 400px;
   height: auto;
@@ -88,7 +91,7 @@ export const FormInput = styled.input`
 `;
 
 export const FormButton = styled.button`
-  background: #01bf71; 
+  background: #f78da7; 
   padding: 16px 0;
   border: none;
   border-radius: 4px;
@@ -102,4 +105,8 @@ export const Text = styled.span`
   margin-top:24px;
   color:#fff;
   font-size:14px;
+`;
+
+export const Ssection = styled.section`
+  background: #abb8c3;
 `;

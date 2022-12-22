@@ -39,7 +39,7 @@ export const Column1 = styled.div`
 export const Column2 = styled.div`
   margin-bottom:15px;
   padding: 0 15px;
-  grid-area:col2;
+  grid-area :col2;
 `;
 export const TexrWrapper = styled.div`
   max-width: 540px;
@@ -48,14 +48,13 @@ export const TexrWrapper = styled.div`
 `;
 
 export const TopLine = styled.p`
-  color: #01bf71;
+  color: #D97182;
   font-size: 16px;
   line-height: 16px;
   font-weight:700;
   letter-spacing: 1.45px;
   text-transform: uppercase;
   margin-bottom: 16px;
-
 `;
 export const Heading = styled.h1`
   margin-bottom: 24px;

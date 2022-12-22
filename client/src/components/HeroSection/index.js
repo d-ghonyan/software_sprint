@@ -12,7 +12,7 @@ import {HeroContainer,
 import {Button} from "../ButtonElement"
 import Video from "../../videos/video.mp4";
 
-const HeroSection= (video) => {
+const HeroSection= () => {
 
   const [hover, setHover] = useState(false);
 
@@ -22,15 +22,17 @@ const HeroSection= (video) => {
   return (
     <HeroContainer id = "home">
       <HeroBg>
-          <VideoBg autoplay loop muted src = {Video} type = "video/mp4"/>
+          <VideoBg autoPlay loop muted>
+		  	<source src={Video} type="video/mp4" />
+		  </VideoBg>
       </HeroBg>
       <HeroContent>
-        <HeroH1>Make Learning Easy</HeroH1>
-        <HeroP>Sign up to join us</HeroP>
+        <HeroH1>Student Union</HeroH1>
+        {/* <HeroP>Sign up to join us</HeroP> */}
         <HeroBtnWrapper> 
-          <Button  to = 'signup' onMouseEnter = {onHover} onMouseLeave = {onHover}
+          {/* <Button  to = 'signup' onMouseEnter = {onHover} onMouseLeave = {onHover}
           primary = "true"
-          dark = "true"       
+          dark = "false"       
           smooth = "true"
           duration= {400}
           spy = {true}
@@ -38,7 +40,7 @@ const HeroSection= (video) => {
           offset={-80}  
           >
             Get Started {hover ? <ArrowForward/> : <ArrowRight/>}
-          </Button>
+          </Button> */}
         </HeroBtnWrapper>
       </HeroContent>
     </HeroContainer>

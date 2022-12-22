@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   min-height: 692px;
-  position: fixed;
+position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -30,7 +30,7 @@ export const Icon = styled(Link)`
   margin-left: 32px;
   margin-top: 32px;
   text-decoration: none;
-  color: #fff;
+  color: #000;
   font-weight: 700;
   font-size: 32px;
   @media screen and (max-width: 480px) {
@@ -88,7 +88,7 @@ export const FormInput = styled.input`
 `;
 
 export const FormButton = styled.button`
-  background: #01bf71; 
+  background: #f78da7; 
   padding: 16px 0;
   border: none;
   border-radius: 4px;

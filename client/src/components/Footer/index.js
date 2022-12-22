@@ -26,15 +26,16 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterWrapp>
-        <FooterLinksContainer>
+        <FooterLinksContainer>s
           <FooterLinksWrapper>
             <FooterLinkItems>
               <FooterLinkTitle>About us</FooterLinkTitle>
-              <FooterLink to="/"> About Us</FooterLink>
-              <FooterLink to="/"> How it works</FooterLink>
-              <FooterLink to="/"> Testimontails</FooterLink>
+              {/* <FooterLink to="/"> About Us</FooterLink> */}
+			  <p><a href="mailto:labs.student.union@tumo.org" color = "white ">Mail</a></p>
+              {/* <FooterLink to="labs.student.union@tumo.org"> Mail</FooterLink> */}
+              {/* <FooterLink to="/"> Testimontails</FooterLink>
               <FooterLink to="/"> Careers</FooterLink>
-              <FooterLink to="/"> Investors</FooterLink>
+              <FooterLink to="/"> Investors</FooterLink> */}
             </FooterLinkItems>
           </FooterLinksWrapper>
         </FooterLinksContainer>
@@ -45,16 +46,16 @@ const Footer = () => {
               TUMO Labs © {new Date().getFullYear()} All righrs reserved
             </WebsiteRights>
             <SocialIcons>
-              <SocialIconLink href="/" target="_blank" aria-label="FaceBook">
+              <SocialIconLink href="https://ru-ru.facebook.com/tumolabs/" target="_blank" aria-label="FaceBook">
                 <FaFacebook />
               </SocialIconLink>
-              <SocialIconLink href="/" target="_blank" aria-label="Instagram">
+              <SocialIconLink href="https://www.instagram.com/tumolabs/" target="_blank" aria-label="Instagram">
                 <FaInstagram />
               </SocialIconLink>
-              <SocialIconLink href="/" target="_blank" aria-label="Youtube">
+              <SocialIconLink href="https://www.youtube.com/channel/UC1spAfywefFdHxrKWLZaDuA" target="_blank" aria-label="Youtube">
                 <FaYoutube />
               </SocialIconLink>
-              <SocialIconLink href="/" target="_blank" aria-label="Linkedin">
+              <SocialIconLink href="https://am.linkedin.com/school/tumo-labs/" target="_blank" aria-label="Linkedin">
                 <FaLinkedinIn />
               </SocialIconLink>
             </SocialIcons>
@@ -66,3 +67,4 @@ const Footer = () => {
 };
 
 export default Footer;
+//#D97182

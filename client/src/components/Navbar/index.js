@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons/lib";
 import { FaBars } from "react-icons/fa";
+import { useMatch, useResolvedPath } from "react-router-dom"
+import { Link as LinkR } from "react-router-dom";
+
 import {
   Nav,
   NavbarContainer,
@@ -59,6 +62,7 @@ const Navbar = ({ toggle }) => {
             <NavItem>
               <NavLinksr
                 to="events"
+				color = "black"
                 // smooth={true}
                 // duration={400}
                 // spy={true}
@@ -66,11 +70,12 @@ const Navbar = ({ toggle }) => {
                 // offset={-80}
               >
                 Events
-              </NavLinksr>
+              </NavLinksr> 
             </NavItem>
             <NavItem>
-              <NavLinks
+              <NavLinksr
                 to="faq"
+				color = "black"
                 // smooth={true}
                 // duration={400}
                 // spy={true}
@@ -78,7 +83,7 @@ const Navbar = ({ toggle }) => {
                 // offset={-80}
               >
                 F.A.Q.
-              </NavLinks>
+              </NavLinksr>
             </NavItem>
           </NavMenu>
           <NavBtn>
@@ -89,5 +94,18 @@ const Navbar = ({ toggle }) => {
     </>
   );
 };
+
+function CustomLink({ to, children, ...props }) {
+  const resolvedPath = useResolvedPath(to)
+  const isActive = useMatch({ path: resolvedPath.pathname, end: true })
+
+  return (
+    <li className={isActive ? "active" : ""}>
+      <LinkR to={to} {...props}>
+        {children}
+      </LinkR>
+    </li>
+  )
+}
 
 export default Navbar;

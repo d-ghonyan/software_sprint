@@ -1,7 +1,8 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom";
 
 export const ServicesContainer = styled.div`
-  height: 800px;
+  height: 100wh;
   display:flex;
   flex-direction:column;
   justify-content: center;
@@ -9,10 +10,10 @@ export const ServicesContainer = styled.div`
   background: #010606;
 
   @media screen and (max-width: 768px){
-    height:1100px;
+    height: 100wh; 
   }
   @media screen and (max-width: 480px){
-    height:1300px;
+    height:100wh;
   }
 `;
 
@@ -33,7 +34,7 @@ export const ServicesWrapper = styled.div`
   align-items: center;
   grid-gap: 16px;
   padding: 0 50px; 
-
+  marhin-bottom: 2000px;
   @media screen and (max-width: 1000px){
     grid-template-columns: 1fr 1fr;
   }
@@ -44,6 +45,7 @@ export const ServicesWrapper = styled.div`
 `;
 
 export const ServicesCard = styled.div`
+  width: 200px;
   background : #fff;
   display : flex;
   flex-direction: column;
@@ -59,6 +61,7 @@ export const ServicesCard = styled.div`
     transition: all 0.2s ease-in-out;
     cursor:pointer;
   }
+  margin-bottom: 20px;
 `;
 
 export const ServicesIcon = styled.img`
@@ -78,4 +81,17 @@ export const ServicesP = styled.p`
     font-size:1rem;
     text-align:center;
     color: black;
+`;
+
+export const Icon = styled(Link)`
+  margin-left: 32px;
+  margin-top: 32px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 32px;
+  @media screen and (max-width: 480px) {
+    margin-left: 16px;
+    margin-top: 8px;
+  }
 `;
