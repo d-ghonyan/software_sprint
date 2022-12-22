@@ -1,3 +1,4 @@
+import { faScaleBalanced } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
  import "./index.css"
 const Popup = props => {
@@ -9,7 +10,7 @@ const togglePopup = () => {
 	console.log(isOpen);
 }
   return (
-    <div className="popup-box" style={{background: "#f78da7"}}>
+    <div className="popup-box" style={{background: "#f78da7"} }>
       <div className="box">
         <span className="close-icon" onClick={props.handleClose} >x</span>
         {props.content}
